@@ -7,7 +7,7 @@ zone = "us-east1-b"
 resource "google_compute_instance" "vm_instance" {
   name         = "test"
   machine_type = "f1-micro"
-tags         = ["vm_instance"]
+tags         = ["vm-instance"]
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-9"
@@ -36,6 +36,6 @@ resource "google_compute_firewall" "ssh-rule" {
     protocol = "tcp"
     ports = ["22"]
   }
-  target_tags = ["vm_instance"]
+  target_tags = ["vm-instance"]
   source_ranges = ["0.0.0.0/0"]
 }
