@@ -31,7 +31,7 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_firewall" "default" {
  name    = "flask-app-firewall"
- network = "default"
+ network = google_compute_network.vpc_network.self_link
 
  allow {
    protocol = "tcp"
