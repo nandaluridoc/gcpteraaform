@@ -20,15 +20,11 @@ resource "google_compute_instance" "vm_instance" {
   access_config {
 }
 }
+  metadata = {
+   ssh-keys = "INSERT_USERNAME:${file("~/.ssh/id_rsa.pub")}"
 }
 resource "google_compute_network" "vpc_network" {
   name = "testvpc"
   auto_create_subnetworks = "true"
 }
 
-resource "google_compute_instance" "vm_instance" {
- ...
-metadata = {
-   ssh-keys = "INSERT_USERNAME:${file("~/.ssh/id_rsa.pub")}"
- }
-}
