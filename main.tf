@@ -21,7 +21,8 @@ resource "google_compute_instance" "vm_instance" {
 }
 }
   metadata = {
-   ssh-keys = "INSERT_USERNAME:${file("~/.ssh/id_rsa.pub")}"
+   ssh-keys = "pani:${file("~/.ssh/id_rsa.pub")}"
+}
 }
 resource "google_compute_network" "vpc_network" {
   name = "testvpc"
