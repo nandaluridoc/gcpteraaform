@@ -29,12 +29,13 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "true"
 }
 
-resource "google_compute_firewall" "default" {
- name    = "flask-app-firewall"
- network = google_compute_network.vpc_network.self_link
-
- allow {
-   protocol = "tcp"
-   ports    = ["22"]
- }
+resource "google_compute_firewall" "ssh-rule" {
+  name = "demo-ssh"
+  network = google_compute_network.vpc_network.name
+  allow {
+    protocol = "tcp"
+    ports = ["22"]
+  }
+  target_tags = ["demo-vm-instance"]
+  source_ranges = ["0.0.0.0/0"]
 }
