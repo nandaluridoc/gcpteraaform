@@ -29,3 +29,12 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "true"
 }
 
+resource "google_compute_firewall" "default" {
+ name    = "flask-app-firewall"
+ network = "default"
+
+ allow {
+   protocol = "tcp"
+   ports    = ["22"]
+ }
+}
