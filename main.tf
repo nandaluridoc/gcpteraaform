@@ -6,11 +6,11 @@ zone = "us-east1-b"
 
 resource "google_compute_instance" "vm_instance" {
   name         = "test"
-  machine_type = "f1-micro"
+  machine_type = "e2-micro"
 tags         = ["vm-instance"]
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "ubuntu-os-cloud/ubuntu-1804-lts"
     }
   }
 
@@ -23,6 +23,7 @@ tags         = ["vm-instance"]
   metadata = {
    ssh-keys = "pani:${file("~/.ssh/id_rsa.pub")}"
 }
+  metadata_startup_script = file("startup_script.sh")
 }
 resource "google_compute_network" "vpc_network" {
   name = "testvpc"
@@ -34,7 +35,7 @@ resource "google_compute_firewall" "ssh-rule" {
   network = google_compute_network.vpc_network.name
   allow {
     protocol = "tcp"
-    ports = ["22"]
+    ports = ["80"]
   }
   target_tags = ["vm-instance"]
   source_ranges = ["0.0.0.0/0"]
